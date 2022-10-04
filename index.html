@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora VK</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div style="display: flex">
+      <form id="form1">
+        <div id="title">Add Coordinates</div>
+
+        <div class="row">
+          <div class="rowlabel"><label for="positionX"> X</label></div>
+          <input class="inputForm" type="number" name="positionX" />
+        </div>
+
+        <button class="formBut" type="submit">Add To Table</button>
+
+        <div class="row">
+          <div class="rowlabel"><label for="function"> Function </label></div>
+          <input
+            class="inputForm2"
+            id="function"
+            type="function"
+            name="function"
+          />
+        </div>
+
+        <button class="formBut" id="delTable">Delete All Rows</button>
+      </form>
+
+      <!----
+            <table id="table" > 
+                <thead>
+                    <tr>
+                        <th>X Position</th>
+                        <th>Y Position</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        --->
+
+      <canvas id="myCanva"> </canvas>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", firstGraph);
+      document.addEventListener("click", graphFn);
+
+      var c = document.getElementById("myCanva");
+      var ctx = c.getContext("2d");
+      c.width = 5000;
+      c.height = 5000;
+
+      function graphFn() {
+
+          let fn = document.getElementById("function");
+            if(fn.value==''){return console.log(1)}
+            
+            ctx.lineWidth = 15;
+        let idx = fn.value.indexOf("=");
+        let str = fn.value.slice(idx + 1);
+        let results = []
+        let n=3000;
+        let object={}
+        
+
+        for (let i=-3000; i < n; i++) {
+            let x2 = str.replace(/x/gi, `${i}`);
+            object={x:i, y:eval(x2)}
+            results.push(object)
+            
+            
+        }
+
+        
+        for (let j=0; j < results.length; j++) {
+            
+            ctx.fillRect(results[j].x+2500, results[j].y+2500,10,10)
+            console.log(`${results[j].x}, ${results[j].y}`)
+            
+        }
+
+        ctx.moveTo(results[0].x, results[0].y)
+        ctx.beginPath();
+        ctx.lineWidth = 50;
+
+        for (let k=0; k < results.length; k++) {
+            
+            ctx.lineTo(results[k].x+2500, results[k].y+2500);
+            ctx.stroke();
+            
+        }
+        
+        ctx.closePath();
+    }
+
+
+
+
+
+
+
+      function firstGraph() {
+        
+
+        ctx.beginPath();
+        ctx.lineWidth = 15;
+
+        ctx.moveTo(2501, 0);
+        ctx.lineTo(2501, 5010);
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.moveTo(0, 2501);
+        ctx.lineTo(5000, 2501);
+        ctx.stroke();
+        ctx.closePath();
+      }
+    </script>
+  </body>
+</html>
