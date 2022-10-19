@@ -23,6 +23,8 @@ c.height = 500;
 valRange.innerHTML=inRange.value;
 let line;
 
+let lastSize;
+
 //EVENTOS
 btn.addEventListener("click", changeSize);
 
@@ -85,6 +87,8 @@ if(fn.value==''){alert('Debes Ingresar una función para poder realizar la gráf
       }       
     
     ctx.closePath();
+
+    lastSize=size;
 }
 
 
@@ -110,15 +114,20 @@ function firstGraph() {
 
 
 function changeSize(){
-console.log(size)
-c.width = size;
-c.height = size;
 
-c.style["heigth"]=`${size}`;
-c.style["width"]=`${size}`
+if(lastSize==size){
 
-secGraph()
-graphFn()
+  graphFn()
+
+} else {
+
+  c.width = size;
+  c.height = size;
+  secGraph()
+  graphFn()
+
+}
+
 }
 
 
