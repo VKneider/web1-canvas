@@ -8,29 +8,43 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div style="display: flex">
-      <form id="form1">
-        <div id="title">Add Coordinates</div>
+    <div id="main">
+
+      <div id="form1">
+        <div id="title">Datos</div>
 
         <div class="row">
-          <div class="rowlabel"><label for="positionX"> X</label></div>
-          <input class="inputForm" type="number" name="positionX" />
+
+          <div class="rowlabel"><label for="range"> Tamaño del Canvas</label></div>
+          <div class="rowlabel"><label value="500" id="valRange"> </label></div>
+          <input class="inputForm" type="range" value="500" min="100" max="800" id="inRange" step="100" name="range" />
+
+
+          <br><br>
+
+
+          <div class="rowlabel"><label for="lineWidth"> Grosor de la Función </label></div>
+          <div class="rowlabel"><label value="3" name="lineWidth" id="valLine"> 3</label></div>
+          <input class="inputForm" type="range" value="3" min="0.25" max="5" id="inWidth" step="0.25" name="lineWidth" /> 
+
+
+          <br><br>
+
+
+          <div class="rowlabel"><label for="positionX"> Selecciona un Color</label></div>
+          <input type="color" name="color" id="valColor" class="inputForm2" >
         </div>
 
-        <button class="formBut" id="btn" type="submit">Add To Table</button>
-
+        
         <div class="row">
           <div class="rowlabel"><label for="function"> Function </label></div>
-          <input
-            class="inputForm2"
-            id="function"
-            type="function"
-            name="function"
-          />
+          <input class="inputForm2" id="function" name="function">
         </div>
-
-        <button class="formBut" id="delTable">Delete All Rows</button>
-      </form>
+        
+        <button class="formBut" id="btn" >Graficar Función</button>
+        <button class="formBut" id="delTable" >Limpiar Canvas</button>
+        
+      </div>
 
       
 
@@ -38,84 +52,6 @@
       
     </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", firstGraph);
-      document.addEventListener("click", graphFn);
-
-      let c = document.getElementById("myCanva");
-      let ctx = c.getContext("2d");
-      c.width = 500;
-      c.height = 500;
-
-      function graphFn() {
-
-        
-
-          let fn = document.getElementById("function");
-            if(fn.value==''){return console.log(1)}
-            
-            
-        let idx = fn.value.indexOf("=");
-        let str = fn.value.slice(idx + 1);
-        
-        let n=500;
-        let object={}
-        let i=-n;
-        var x=i;
-        
-        ctx.moveTo(-n+250, 250-eval(str))
-        ctx.beginPath();
-        for (; i < n; i++) {
-          
-          x = i;
-          
-         
-          
-            
-
-          
-            
-            
-            ctx.lineWidth = 1;
-            ctx.lineTo(i+250, 250-eval(str));
-            ctx.stroke();
-            
-            
-          }
-          
-          ctx.closePath();
-        
-        
-
-
-
-
-        
-    }
-
-
-
-
-
-
-
-      function firstGraph() {
-        
-        
-        ctx.beginPath();
-        ctx.lineWidth = 1;
-
-        ctx.moveTo(250, 0);
-        ctx.lineTo(250, 501);
-        ctx.stroke();
-        ctx.closePath();
-
-        ctx.beginPath();
-        ctx.moveTo(0, 250);
-        ctx.lineTo(501, 250);
-        ctx.stroke();
-        ctx.closePath();
-      }
-    </script>
+    <script src="main.js"> </script>
   </body>
 </html>
